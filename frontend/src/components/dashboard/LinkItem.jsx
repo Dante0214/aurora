@@ -15,6 +15,12 @@ const LinkItem = ({ link, onEdit, onShare, onDelete, canEditLink }) => {
       alert("권한이 없습니다");
     }
   };
+  const categoryLabels = {
+    personal: "개인 즐겨 찾기",
+    work: "업무 활용 자료",
+    reference: "참고 자료",
+    education: "교육 및 학습 자료",
+  };
   if (isEditing) {
     return (
       <EditLinkForm
@@ -73,7 +79,7 @@ const LinkItem = ({ link, onEdit, onShare, onDelete, canEditLink }) => {
               {link.url}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {link.category}
+              {categoryLabels[link.category] || link.category}
             </Typography>
             <Typography variant="caption">작성자 {link.created_by}</Typography>
           </>

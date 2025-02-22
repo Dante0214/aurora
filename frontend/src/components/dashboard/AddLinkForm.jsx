@@ -12,12 +12,12 @@ const AddLinkForm = ({ onAddLink }) => {
   const [newLink, setNewLink] = useState({
     name: "",
     url: "",
-    category: "개인 즐겨 찾기",
+    category: "personal",
   });
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddLink(newLink);
-    setNewLink({ name: "", url: "", category: "개인 즐겨 찾기" });
+    setNewLink({ name: "", url: "", category: "personal" });
   };
   return (
     <Box
@@ -43,10 +43,10 @@ const AddLinkForm = ({ onAddLink }) => {
         value={newLink.category}
         onChange={(e) => setNewLink({ ...newLink, category: e.target.value })}
       >
-        <MenuItem value="개인 즐겨 찾기">개인 즐겨 찾기</MenuItem>
-        <MenuItem value="업무 활용 자료">업무 활용 자료</MenuItem>
-        <MenuItem value="참고 자료">참고 자료</MenuItem>
-        <MenuItem value="교육 및 학습 자료">교육 및 학습자료</MenuItem>
+        <MenuItem value="personal">개인 즐겨 찾기</MenuItem>
+        <MenuItem value="work">업무 활용 자료</MenuItem>
+        <MenuItem value="reference">참고 자료</MenuItem>
+        <MenuItem value="education">교육 및 학습자료</MenuItem>
       </Select>
       <Button type="submit" variant="contained" sx={{ height: "56px" }}>
         추가

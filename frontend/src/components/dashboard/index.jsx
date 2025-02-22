@@ -5,6 +5,7 @@ import AddLinkForm from "./AddLinkForm";
 import LinkList from "./LinkList";
 import ShareModal from "./ShareModal";
 import { Box, Button, Container, Typography } from "@mui/material";
+import SearchBar from "./SearchBar";
 
 const Dashboard = () => {
   const nav = useNavigate();
@@ -18,7 +19,9 @@ const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [shares, setShares] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   useEffect(() => {
     fetchInitialData();
   }, []);
@@ -118,6 +121,32 @@ const Dashboard = () => {
       }
     }
   };
+  const fetchLinks = async () => {
+    try {
+      const response = await api.get("/api/links");
+      setLinks(response.data);
+    } catch (error) {
+      console.error("링크 목록 가져오기 실패", error);
+    }
+  };
+
+  const handelSearch = async () => {
+    setIsSearching(true);
+    try {
+      const response = await api.get("/api/links", {
+        params: { search: searchQuery, category: selectedCategory },
+      });
+      setLinks(response.data);
+    } catch (error) {
+      alert("검색 실패: " + error.response?.data?.message);
+    }
+  };
+  const handleReset = async () => {
+    const success = await fetchLinks();
+    if (success) {
+      setIsSearching(false);
+    }
+  };
 
   const canEditLink = (link) => {
     return (
@@ -158,17 +187,29 @@ const Dashboard = () => {
         >
           로그아웃
         </Button>
-
-        <AddLinkForm onAddLink={handleAddLink} />
-
-        <LinkList
-          links={links}
-          onEdit={handleEdit}
-          onShare={openShareModal}
-          onDelete={handleDelete}
-          canEditLink={canEditLink}
-          currentUser={currentUser}
+        <SearchBar
+          onSearch={handelSearch}
+          onReset={handleReset}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          showingResults={isSearching}
+          hasResults={links.length > 0}
         />
+        <AddLinkForm onAddLink={handleAddLink} />
+        {links.length === 0 ? (
+          <Typography sx={{ mt: 2 }}>목록이 없습니다.</Typography>
+        ) : (
+          <LinkList
+            links={links}
+            onEdit={handleEdit}
+            onShare={openShareModal}
+            onDelete={handleDelete}
+            canEditLink={canEditLink}
+            currentUser={currentUser}
+          />
+        )}
 
         {showShareModal && (
           <ShareModal

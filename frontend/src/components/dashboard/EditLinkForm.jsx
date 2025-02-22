@@ -53,10 +53,10 @@ const EditLinkForm = ({ link, onSubmit, onCancel }) => {
         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
         sx={{ minWidth: 150 }}
       >
-        <MenuItem value="개인 즐겨 찾기">개인 즐겨 찾기</MenuItem>
-        <MenuItem value="업무 활용 자료">업무 활용 자료</MenuItem>
-        <MenuItem value="참고 자료">참고 자료</MenuItem>
-        <MenuItem value="교육 및 학습 자료">교육 및 학습 자료</MenuItem>
+        <MenuItem value="personal">개인 즐겨 찾기</MenuItem>
+        <MenuItem value="work">업무 활용 자료</MenuItem>
+        <MenuItem value="reference">참고 자료</MenuItem>
+        <MenuItem value="education">교육 및 학습자료</MenuItem>
       </Select>
       <IconButton type="submit">
         <CheckIcon />
