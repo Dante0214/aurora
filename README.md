@@ -109,13 +109,17 @@
 ## 설치 및 실행 방법
 
 1. 백엔드 설정
+```{bash}
    cd backend
    python -m venv venv
    source venv/bin/activate # Windows: venv\Scripts\activate
    pip install -r requirements.txt
    python app.py
+   ```
 
 2. 프론트엔드 설정
+```{bash}
    cd frontend
    npm install
    npm run dev
+```
