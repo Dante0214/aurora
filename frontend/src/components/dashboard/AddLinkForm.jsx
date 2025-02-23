@@ -16,6 +16,7 @@ const AddLinkForm = ({ onAddLink }) => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
+
     onAddLink(newLink);
     setNewLink({ name: "", url: "", category: "personal" });
   };
@@ -33,7 +34,7 @@ const AddLinkForm = ({ onAddLink }) => {
       />
       <TextField
         type="url"
-        label="url"
+        label="url (https://abc.com)"
         value={newLink.url}
         onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
         required
