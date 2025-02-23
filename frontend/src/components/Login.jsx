@@ -17,7 +17,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await api.post("/api/login", { username, password });
-      localStorage.setItem("token", response.data.access_token);
+      // console.log(response.data);
+      localStorage.setItem("access_token", response.data.access_token);
       nav("/dashboard");
     } catch (error) {
       alert("로그인 실패");
